@@ -1,0 +1,13 @@
+# Uploads directory hardening.
+# Files here are served ONLY through the authenticated PHP file endpoint
+# (GET /api/files/{type}/{name}). Never execute anything as PHP.
+
+php_flag engine off
+RemoveHandler .php .phtml .phar
+RemoveType .php .phtml .phar
+
+<FilesMatch "\.(php|phtml|phar|phps|cgi|pl|py|sh)$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes -ExecCGI

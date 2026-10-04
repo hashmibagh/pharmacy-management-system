@@ -1,0 +1,33 @@
+# --- Secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- PHP / Composer ---
+backend/vendor/
+composer.phar
+
+# --- Node ---
+node_modules/
+frontend/node_modules/
+
+# --- Build output ---
+frontend/dist/
+
+# --- Uploads (keep the directories via .gitkeep) ---
+backend/uploads/*
+!backend/uploads/.gitkeep
+storage/*
+!storage/**/.gitkeep
+
+# --- Logs ---
+*.log
+backend/logs/*
+!backend/logs/.gitkeep
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

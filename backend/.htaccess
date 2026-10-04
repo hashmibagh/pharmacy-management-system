@@ -1,0 +1,22 @@
+# Pharmacy Management System — Apache rewrite rules
+# Routes every /api/* request to the front controller (index.php).
+# For Nginx, see the server block example in README.md.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Don't rewrite real files/directories (lets /uploads/* etc. resolve if needed)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # /api/* -> index.php (PATH_INFO / REQUEST_URI routing inside index.php)
+    RewriteRule ^api/(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Never serve these directly, even if the docroot is misconfigured.
+<FilesMatch "(^\.env$|composer\.(json|lock)$|\.sql$|\.md$)">
+    Require all denied
+</FilesMatch>
+
+# Harden: no directory listings.
+Options -Indexes
