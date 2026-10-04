@@ -8,14 +8,14 @@ import './index.css';
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('/service-worker.js')
+      .register(import.meta.env.BASE_URL + 'service-worker.js')
       .catch((err) => console.warn('SW registration failed:', err));
   });
 } else if ('serviceWorker' in navigator) {
   // In development also register so offline flows can be tested,
   // but tolerate failures (e.g. stale caches).
   navigator.serviceWorker
-    .register('/service-worker.js')
+    .register(import.meta.env.BASE_URL + 'service-worker.js')
     .catch(() => {});
 }
 

@@ -15,14 +15,17 @@
 
 const CACHE_NAME = 'pharmacy-shell-v1';
 const API_CACHE_NAME = 'pharmacy-api-v1';
-const OFFLINE_URL = '/offline.html';
+// Base path derived from the SW registration scope so the app also works
+// when served from a sub-path (e.g. a GitHub Pages project site).
+const SCOPE = self.registration ? self.registration.scope : self.location.origin + '/';
+const OFFLINE_URL = SCOPE + 'offline.html';
 
 // Precache the app shell on install.
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) => cache.addAll(['/', '/index.html', OFFLINE_URL]))
+      .then((cache) => cache.addAll([SCOPE, SCOPE + 'index.html', OFFLINE_URL]))
       .then(() => self.skipWaiting())
       .catch(() => {}),
   );
@@ -144,8 +147,8 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(payload.title, {
       body: payload.body,
-      icon: '/icons/icon-192.png',
-      badge: '/icons/icon-192.png',
+      icon: SCOPE + 'icons/icon-192.png',
+      badge: SCOPE + 'icons/icon-192.png',
       data: payload.data || {},
       tag: payload.tag || 'pharmacy-general',
     }),
@@ -154,7 +157,7 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const target = (event.notification.data && event.notification.data.url) || '/';
+  const target = (event.notification.data && event.notification.data.url) || SCOPE;
   event.waitUntil(
     (async () => {
       const clients = await self.clients.matchAll({
