@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e7bd2" />
+    <title>Offline — Pharmacy Management</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #1e7bd2 0%, #142e4d 100%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        padding: 40px 32px;
+        max-width: 420px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      }
+      .icon {
+        width: 72px; height: 72px; margin: 0 auto 20px;
+        border-radius: 18px; background: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 36px;
+      }
+      h1 { font-size: 22px; margin-bottom: 10px; }
+      p { font-size: 14px; opacity: 0.85; line-height: 1.6; margin-bottom: 8px; }
+      .btn {
+        display: inline-block; margin-top: 20px;
+        background: #fff; color: #1e7bd2;
+        border: none; border-radius: 12px;
+        padding: 12px 28px; font-size: 15px; font-weight: 600;
+        cursor: pointer; text-decoration: none;
+      }
+      .btn:active { transform: scale(0.97); }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="icon">💊</div>
+      <h1>You're offline</h1>
+      <p>The Pharmacy Management app needs an internet connection to load new pages.</p>
+      <p>Sales you created offline are safely queued and will sync automatically once you're back online.</p>
+      <button class="btn" onclick="location.reload()">Try again</button>
+    </div>
+  </body>
+</html>

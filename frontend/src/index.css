@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base: comfortable on mobile, respects dark mode via .dark on <html> */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+  /* Big enough tap targets by default on form controls */
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* Thin, subtle scrollbars for tables and drawers */
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-slate-700;
+  }
+
+  /* Glassmorphism card utility used by StatCard and dashboard panels */
+  .glass {
+    @apply rounded-2xl border border-white/40 bg-white/70 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70;
+  }
+}
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 1.6s infinite;
+}
+
+/* ---------- Print styles: invoices & receipts ---------- */
+/* Thermal 80mm receipt + A4 invoice. Apply class="print-area" to the
+   element you want printed; everything else is hidden. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    border: none !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  /* Thermal printers: keep receipt narrow */
+  .print-thermal .print-area {
+    width: 72mm;
+    font-size: 12px;
+  }
+  @page {
+    margin: 8mm;
+  }
+}
