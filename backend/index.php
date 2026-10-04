@@ -22,6 +22,26 @@ Config::load(BACKEND_PATH . '/.env');
 $vendorAutoload = BACKEND_PATH . '/vendor/autoload.php';
 if (is_file($vendorAutoload)) {
     require_once $vendorAutoload; // firebase/php-jwt (+ optional dompdf/phpspreadsheet)
+} else {
+    // Bundled firebase/php-jwt fallback (MIT-licensed, from
+    // https://github.com/firebase/php-jwt) so the API runs with zero
+    // `composer install` — handy on KSWEB/Android and shared hosting.
+    // `composer install` still works and takes precedence when present.
+    $jwtLib = BACKEND_PATH . '/lib/Firebase/JWT';
+    if (is_dir($jwtLib)) {
+        foreach ([
+            'BeforeValidException.php',
+            'ExpiredException.php',
+            'SignatureInvalidException.php',
+            'Key.php',
+            'JWT.php',
+        ] as $jwtFile) {
+            $jwtPath = $jwtLib . '/' . $jwtFile;
+            if (is_file($jwtPath)) {
+                require_once $jwtPath;
+            }
+        }
+    }
 }
 
 // Fallback PSR-4-ish autoloader for our own classes so the API boots even

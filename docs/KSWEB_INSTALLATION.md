@@ -51,13 +51,8 @@ Run the entire Pharmacy Management System on your Android phone using **KSWEB** 
 ## Step 7 — Copy backend
 
 1. Copy the entire **`backend/`** folder from the project into KSWEB's web root, e.g. `/htdocs/pharmacy/backend/` (create the `pharmacy` folder first).
-2. How to copy: USB from PC, or a file-manager app (e.g. Material Files / Solid Explorer) if the files are already on the phone. **Exclude** `backend/vendor/` if it's huge — you'll install it in a moment (or include it if you already ran `composer install` on the PC; PHP 8.1+ vendor code is portable).
-3. If you excluded `vendor/`: install Composer deps. The reliable way is on the **PC** before copying:
-   ```bash
-   cd backend
-   composer install --no-dev --optimize-autoloader
-   ```
-   Then copy the resulting `backend/` (with `vendor/`) to the phone. On-phone Composer via Termux is unreliable — avoid it.
+2. How to copy: download the repo ZIP on the phone (the repo is public: open it in Chrome → **Code → Download ZIP**), extract with a file-manager app, then move `backend/` into place. USB from a PC works too.
+3. **No Composer needed.** The JWT library (`firebase/php-jwt`, MIT-licensed) is bundled under `backend/lib/` and loads automatically. Running `composer install` on a PC is still supported and takes precedence if `backend/vendor/` exists, but you can skip it entirely for KSWEB.
 
 ## Step 8 — Configure .env
 
